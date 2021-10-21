@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const stock = require('./controllers/stock');
+const fintwit = require('./controllers/fintwit');
 const apicache = require('apicache');
 
 const app = express();
@@ -26,6 +27,14 @@ app.get('/chart/intraday/:ticker', cacheSuccesses, (req, res) => {
 });
 app.get('/chart/daily/:ticker', cacheSuccesses, (req, res) => {
   stock.getDailyData(req, res);
+});
+
+app.get('/news/:ticker?', cacheSuccesses, (req, res) => {
+  stock.getNews(req, res);
+});
+
+app.get('/trending/:fintwit', cacheSuccesses, (req, res) => {
+  fintwit.getTrending(req, res);
 });
 
 let port = process.env.PORT || 3000;
