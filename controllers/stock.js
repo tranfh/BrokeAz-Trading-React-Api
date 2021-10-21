@@ -3,7 +3,6 @@ const request = require('request');
 require('dotenv').config();
 
 const getCompanyOverview = (req, res) => {
-  console.log(req.params.ticker);
   let url = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${req.params.ticker}&apikey=${process.env.ALPHAVANTAGE_API_KEY}`;
 
   request.get(
@@ -70,7 +69,117 @@ const getNews = (req, res) => {
       qs: { symbol: req.params.ticker },
       headers: {
         'x-rapidapi-host': 'fidelity-investments.p.rapidapi.com',
-        'x-rapidapi-key': '265252c1d9msh67900f76ecdfef2p1080bfjsnb825b758299c',
+        'x-rapidapi-key': process.env.FIDELITY_API_KEY,
+        useQueryString: true,
+      },
+    },
+    (err, data) => {
+      if (err) {
+        res.statusCode(404).json('Could not complete request');
+      } else {
+        // data is successfully parsed as a JSON object:
+        res.json(JSON.parse(data.body));
+      }
+    }
+  );
+};
+
+const getMostActive = (req, res) => {
+  request.get(
+    {
+      url: 'https://stock-market-data.p.rapidapi.com/market/screener/most-actives',
+      headers: {
+        'x-rapidapi-host': 'stock-market-data.p.rapidapi.com',
+        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
+        useQueryString: true,
+      },
+    },
+    (err, data) => {
+      if (err) {
+        res.statusCode(404).json('Could not complete request');
+      } else {
+        console.log(data);
+        // data is successfully parsed as a JSON object:
+        res.json(JSON.parse(data.body));
+      }
+    }
+  );
+};
+
+const getSmallCapGainer = (req, res) => {
+  request.get(
+    {
+      url: 'https://stock-market-data.p.rapidapi.com/market/screener/small-cap-gainers',
+      headers: {
+        'x-rapidapi-host': 'stock-market-data.p.rapidapi.com',
+        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
+        useQueryString: true,
+      },
+    },
+    (err, data) => {
+      if (err) {
+        res.statusCode(404).json('Could not complete request');
+      } else {
+        // data is successfully parsed as a JSON object:
+        res.json(JSON.parse(data.body));
+      }
+    }
+  );
+};
+
+const getDayLosers = (req, res) => {
+  request.get(
+    {
+      url: 'https://stock-market-data.p.rapidapi.com/market/screener/day-losers',
+      headers: {
+        'x-rapidapi-host': 'stock-market-data.p.rapidapi.com',
+        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
+        useQueryString: true,
+      },
+    },
+    (err, data) => {
+      if (err) {
+        res.statusCode(404).json('Could not complete request');
+      } else {
+        // data is successfully parsed as a JSON object:
+        res.json(JSON.parse(data.body));
+      }
+    }
+  );
+};
+
+const getDayGainers = (req, res) => {
+  request.get(
+    {
+      url: 'https://stock-market-data.p.rapidapi.com/market/screener/day-gainers',
+      headers: {
+        'x-rapidapi-host': 'stock-market-data.p.rapidapi.com',
+        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
+        useQueryString: true,
+      },
+    },
+    (err, data) => {
+      if (err) {
+        res.statusCode(404).json('Could not complete request');
+      } else {
+        // data is successfully parsed as a JSON object:
+        res.json(JSON.parse(data.body));
+      }
+    }
+  );
+};
+const getQuote = (req, res) => {
+  request.get(
+    {
+      url: 'https://alpha-vantage.p.rapidapi.com/query',
+      qs: {
+        function: 'GLOBAL_QUOTE',
+        symbol: req.params.ticker,
+        datatype: 'json',
+      },
+      headers: {
+        'x-rapidapi-host': 'alpha-vantage.p.rapidapi.com',
+        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
         useQueryString: true,
       },
     },
@@ -90,4 +199,9 @@ module.exports = {
   getIntradayData: getIntradayData,
   getDailyData: getDailyData,
   getNews: getNews,
+  getMostActive: getMostActive,
+  getDayGainers: getDayGainers,
+  getDayLosers: getDayLosers,
+  getSmallCapGainer: getSmallCapGainer,
+  getQuote: getQuote,
 };

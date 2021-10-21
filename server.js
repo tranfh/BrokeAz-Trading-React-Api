@@ -22,6 +22,11 @@ app.get('/', (req, res) => {
 app.get('/search/:ticker', (req, res) => {
   stock.getCompanyOverview(req, res);
 });
+app.get('/quote/:ticker', (req, res) => {
+  stock.getQuote(req, res);
+});
+
+// CHARTS
 app.get('/chart/intraday/:ticker', cacheSuccesses, (req, res) => {
   stock.getIntradayData(req, res);
 });
@@ -29,12 +34,31 @@ app.get('/chart/daily/:ticker', cacheSuccesses, (req, res) => {
   stock.getDailyData(req, res);
 });
 
+// NEWS
 app.get('/news/:ticker?', cacheSuccesses, (req, res) => {
   stock.getNews(req, res);
 });
 
+// TRENDING
 app.get('/trending/:fintwit', cacheSuccesses, (req, res) => {
   fintwit.getTrending(req, res);
+});
+
+// MARKET MOVERS
+app.get('/mostactives', cacheSuccesses, (req, res) => {
+  stock.getMostActive(req, res);
+});
+
+app.get('/smallcaps', cacheSuccesses, (req, res) => {
+  stock.getSmallCapGainer(req, res);
+});
+
+app.get('/gainers', cacheSuccesses, (req, res) => {
+  stock.getDayGainers(req, res);
+});
+
+app.get('/losers', cacheSuccesses, (req, res) => {
+  stock.getDayLosers(req, res);
 });
 
 let port = process.env.PORT || 3000;
