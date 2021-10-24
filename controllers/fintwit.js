@@ -28,7 +28,7 @@ const getTrending = (req, res) => {
       stocktwits
         .trendingStocks()
         .then((stocks) => {
-          data = stocks.symbols.map((ticker) => ticker.symbol).slice(0, 14);
+          data = stocks.symbols.map((ticker) => ticker.symbol).slice(0, 5);
           res.json(data);
         })
         .catch((err) => {
@@ -69,7 +69,7 @@ const getTrending = (req, res) => {
             Object.fromEntries(
               Object.entries(data).sort(([, a], [, b]) => b - a)
             )
-          ).slice(0, 14);
+          ).slice(0, 5);
           res.json(sortedData);
         })
         .catch((err) => res.status(400).json('Could Not Retrieve Reddit Data'));
@@ -98,7 +98,7 @@ const getTrending = (req, res) => {
               Object.fromEntries(
                 Object.entries(tickers).sort(([, a], [, b]) => b - a)
               )
-            ).slice(0, 14);
+            ).slice(0, 5);
             res.json(sortedData);
           } else {
             res.status(404).json('Could Not Fetch Twitter Data');

@@ -171,24 +171,16 @@ const getDayGainers = (req, res) => {
 const getQuote = (req, res) => {
   request.get(
     {
-      url: 'https://alpha-vantage.p.rapidapi.com/query',
-      qs: {
-        function: 'GLOBAL_QUOTE',
-        symbol: req.params.ticker,
-        datatype: 'json',
-      },
-      headers: {
-        'x-rapidapi-host': 'alpha-vantage.p.rapidapi.com',
-        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
-        useQueryString: true,
-      },
+      url: `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${req.params.ticker}&apikey=${process.env.ALPHAVANTAGE_API_KEY}`,
+      json: true,
+      headers: { 'User-Agent': 'request' },
     },
-    (err, data) => {
+    (err, response, data) => {
       if (err) {
         res.statusCode(404).json('Could not complete request');
       } else {
         // data is successfully parsed as a JSON object:
-        res.json(JSON.parse(data.body));
+        res.json(data);
       }
     }
   );
