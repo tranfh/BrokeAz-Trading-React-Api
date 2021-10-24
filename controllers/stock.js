@@ -85,22 +85,20 @@ const getNews = (req, res) => {
 };
 
 const getMostActive = (req, res) => {
+  let url = `https://financialmodelingprep.com/api/v3/actives?apikey=${process.env.FMP_API_KEY}`;
+
   request.get(
     {
-      url: 'https://stock-market-data.p.rapidapi.com/market/screener/most-actives',
-      headers: {
-        'x-rapidapi-host': 'stock-market-data.p.rapidapi.com',
-        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
-        useQueryString: true,
-      },
+      url: url,
+      json: true,
+      headers: { 'User-Agent': 'request' },
     },
     (err, data) => {
       if (err) {
         res.statusCode(404).json('Could not complete request');
       } else {
-        console.log(data);
         // data is successfully parsed as a JSON object:
-        res.json(JSON.parse(data.body));
+        res.json(data);
       }
     }
   );
@@ -128,46 +126,45 @@ const getSmallCapGainer = (req, res) => {
 };
 
 const getDayLosers = (req, res) => {
+  let url = `https://financialmodelingprep.com/api/v3/stock/losers?apikey=${process.env.FMP_API_KEY}`;
+
   request.get(
     {
-      url: 'https://stock-market-data.p.rapidapi.com/market/screener/day-losers',
-      headers: {
-        'x-rapidapi-host': 'stock-market-data.p.rapidapi.com',
-        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
-        useQueryString: true,
-      },
+      url: url,
+      json: true,
+      headers: { 'User-Agent': 'request' },
     },
     (err, data) => {
       if (err) {
         res.statusCode(404).json('Could not complete request');
       } else {
         // data is successfully parsed as a JSON object:
-        res.json(JSON.parse(data.body));
+        res.json(data);
       }
     }
   );
 };
 
 const getDayGainers = (req, res) => {
+  let url = `https://financialmodelingprep.com/api/v3/stock/gainers?apikey=${process.env.FMP_API_KEY}`;
+
   request.get(
     {
-      url: 'https://stock-market-data.p.rapidapi.com/market/screener/day-gainers',
-      headers: {
-        'x-rapidapi-host': 'stock-market-data.p.rapidapi.com',
-        'x-rapidapi-key': process.env.STOCK_MARKET_API_KEY,
-        useQueryString: true,
-      },
+      url: url,
+      json: true,
+      headers: { 'User-Agent': 'request' },
     },
     (err, data) => {
       if (err) {
         res.statusCode(404).json('Could not complete request');
       } else {
         // data is successfully parsed as a JSON object:
-        res.json(JSON.parse(data.body));
+        res.json(data);
       }
     }
   );
 };
+
 const getQuote = (req, res) => {
   request.get(
     {
