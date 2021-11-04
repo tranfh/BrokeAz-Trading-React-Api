@@ -146,7 +146,7 @@ const getDayLosers = (req, res) => {
 };
 
 const getDayGainers = (req, res) => {
-  let url = `https://financialmodelingprep.com/api/v3/stock/gainers?apikey=${process.env.FMP_API_KEY}`;
+  let url = `https://financialmodelingprep.com/api/v3/stock/gainers?apikey=${process.env.FMP2_API_KEY}`;
 
   request.get(
     {
