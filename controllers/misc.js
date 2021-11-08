@@ -3,8 +3,7 @@ const request = require('request');
 require('dotenv').config();
 
 const getLatestNews = (req, res) => {
-  let url = `https://financialmodelingprep.com/api/v3/stock_news?limit=100&apikey=
-    ${process.env.FMP_API_KEY}`;
+  let url = `https://financialmodelingprep.com/api/v3/stock_news?limit=100&apikey=${process.env.FMP_API_KEY}`;
 
   request.get(
     {
@@ -24,9 +23,7 @@ const getLatestNews = (req, res) => {
 };
 
 const getInsiders = (req, res) => {
-  let url = `https://financialmodelingprep.com/api/v4/insider-trading?transactionType=P-Purchase,S-Sale&limit=100&apikey=
-    ${process.env.FMP_API_KEY}`;
-
+  let url = `https://financialmodelingprep.com/api/v4/insider-trading?transactionType=P-Purchase,S-Sale&limit=100&apikey=${process.env.FMP2_API_KEY}`;
   request.get(
     {
       url: url,
