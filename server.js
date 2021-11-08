@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const stock = require('./controllers/stock');
 const fintwit = require('./controllers/fintwit');
+const misc = require('./controllers/misc');
 const apicache = require('apicache');
 
 const app = express();
@@ -71,6 +72,15 @@ app.get('/gainers', cacheSuccesses60, (req, res) => {
 
 app.get('/losers', cacheSuccesses60, (req, res) => {
   stock.getDayLosers(req, res);
+});
+
+// MISC
+app.get('/insiders', cacheSuccesses60, (req, res) => {
+  misc.getInsiders(req, res);
+});
+
+app.get('/latestnews', cacheSuccesses60, (req, res) => {
+  misc.getLatestNews(req, res);
 });
 
 let port = process.env.PORT || 3000;
