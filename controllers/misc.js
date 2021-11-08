@@ -43,3 +43,8 @@ const getInsiders = (req, res) => {
     }
   );
 };
+
+module.exports = {
+  getLatestNews: getLatestNews,
+  getInsiders: getInsiders,
+};
